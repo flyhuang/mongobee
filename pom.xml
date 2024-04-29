@@ -9,7 +9,7 @@
 
     <groupId>com.github.mongobee</groupId>
     <artifactId>mongobee</artifactId>
-    <version>0.14-SNAPSHOT</version>
+    <version>0.14-AB-0.0.1</version>
 
     <licenses>
         <license>
@@ -35,12 +35,12 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>nexus-internal</id>
+            <url>https://nexus.tools.accelbyte.net/repository/maven-snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>nexus-internal</id>
+            <url>https://nexus.tools.accelbyte.net/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
 
@@ -144,8 +144,8 @@
                         <version>1.6.2</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <serverId>nexus-internal</serverId>
+                            <nexusUrl>https://nexus.tools.accelbyte.net/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>

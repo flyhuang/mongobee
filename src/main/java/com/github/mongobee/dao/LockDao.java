@@ -1,13 +1,13 @@
 package com.github.mongobee.dao;
 
-import org.bson.Document;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.github.mongobee.utils.DBUtils;
 import com.mongodb.ErrorCategory;
 import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.IndexOptions;
+import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author colsson11
@@ -21,9 +21,9 @@ public class LockDao {
 
   private static final String LOCK_ENTRY_KEY_VAL = "LOCK";
   private String lockCollectionName;
-  
+
   public LockDao(String lockCollectionName) {
-	this.lockCollectionName = lockCollectionName;
+    this.lockCollectionName = lockCollectionName;
   }
 
   public void intitializeLock(MongoDatabase db) {
@@ -33,7 +33,7 @@ public class LockDao {
   private void createCollectionAndUniqueIndexIfNotExists(MongoDatabase db) {
     Document indexKeys = new Document(KEY_PROP_NAME, INDEX_SORT_ASC);
     IndexOptions indexOptions = new IndexOptions().unique(true).name("mongobeelock_key_idx");
-
+    DBUtils.createCollectionIfNotExists(db, lockCollectionName);
     db.getCollection(lockCollectionName).createIndex(indexKeys, indexOptions);
   }
 
@@ -70,7 +70,7 @@ public class LockDao {
   }
 
   public void setLockCollectionName(String lockCollectionName) {
-	this.lockCollectionName = lockCollectionName;
+    this.lockCollectionName = lockCollectionName;
   }
 
 }

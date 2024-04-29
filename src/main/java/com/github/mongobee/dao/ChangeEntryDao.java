@@ -4,6 +4,7 @@ import static org.springframework.util.StringUtils.hasText;
 
 import java.util.Date;
 
+import com.github.mongobee.utils.DBUtils;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +70,7 @@ public class ChangeEntryDao {
 
       db = mongo.getDB(dbName); // for Jongo driver and backward compatibility (constructor has required parameter Jongo(DB) )
       mongoDatabase = mongo.getDatabase(dbName);
-
+      DBUtils.createCollectionIfNotExists(mongoDatabase, changelogCollectionName);
       ensureChangeLogCollectionIndex(mongoDatabase.getCollection(changelogCollectionName));
       initializeLock();
       return mongoDatabase;

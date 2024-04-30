@@ -1,5 +1,6 @@
 package com.github.mongobee.utils;
 
+import com.mongodb.MongoCommandException;
 import com.mongodb.client.MongoDatabase;
 
 public class DBUtils {
@@ -13,7 +14,13 @@ public class DBUtils {
       }
     }
     if (!exists && !db.getClass().getSimpleName().equals("FongoMongoDatabase")) {
-      db.createCollection(collectionName);
+      try {
+        db.createCollection(collectionName);
+      } catch (MongoCommandException e) {
+        if (e.getCode() != 48) {
+          throw e;
+        }
+      }
     }
   }
 }
